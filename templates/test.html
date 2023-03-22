@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>Websocket Example</title> 
+</head> 
+<body> 
+    <img id="image1" src="" width="640" height="480" /> 
+    <b id="counter1"></b> 
+
+    <img id="image2" src="" width="640" height="480" /> 
+    <b id="counter2"></b> 
+
+    <script> 
+        var socket1 = new WebSocket("ws://143.244.138.22:8629/"); 
+
+        socket1.onmessage = function(event) { 
+            // Split the message into p value and image data 
+            var data = event.data.split(","); 
+            var p = data[0]; 
+            var imageData = data[1]; 
+            // Set the source of the image to the new data 
+            document.getElementById("image1").src = "data:image/jpeg;base64," + imageData; 
+            // Set the counter text to the new data 
+            document.getElementById("counter1").innerHTML = "P: " + p; 
+        }; 
+
+        var socket2 = new WebSocket("ws://143.244.138.22:7686/"); 
+
+        socket2.onmessage = function(event) { 
+            // Split the message into p value and image data 
+            var data = event.data.split(","); 
+            var p = data[0]; 
+            var imageData = data[1]; 
+            // Set the source of the image to the new data 
+            document.getElementById("image2").src = "data:image/jpeg;base64," + imageData; 
+            // Set the counter text to the new data 
+            document.getElementById("counter2").innerHTML = "P: " + p; 
+        }; 
+    </script> 
+</body> 
+</html>
